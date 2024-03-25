@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* HEADER STYLING */
+.header-container{
+  display: flex;
+    /* flex-direction: row; */
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 5px;
+    border-bottom: 0.2px solid black;
+}
+
+/* HERO STYLING */
+.hero-container{
+  padding: 24px 12px;
+}
+.hero-margin-container{
+  margin-left: 12px;
+}
+.game-title{
+  font: inherit;
+  font-size: 37px;
+}
+.game-date{
+  font-weight: lighter;
+  font-size: 25px;
+}
+/* INSTRUCTIONS STYLING */
+.instructions-container{
+  border-top: 0.3px solid black;
+  border-bottom: 0.3px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+/* GAMEBOARD STYLING */
+.create-title{
+  text-align: center;
+  margin-top: 24px;
+}
+.gameboard-container {
+  margin: auto;
+  height: 502px;
+  width: 624px;
+  margin-bottom: 25px;
+}
+.grid > div {
+  /* color: orange; */
+  text-align: center;
+  font-size: 1.4em;
+  padding: 2em 1em;
+  background-color: rgb(239, 239, 230); 
+  color: rgb(0, 0, 0);
+  border-radius: 6px;
+  font-weight: 520;
+  height: 80px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.grid{
+  /* height: 344px;
+  width: 624px; */
+  margin: 24px auto;
+}
+.mistakes-container{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.mistakes-htag{
+  display: flex;
+  align-items: center;
+}
+.mistakes-remaining-bubbles-container{
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+  min-width: 120px;
+}
+.mistakes-remaining-bubble{
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background-color: rgb(90, 89, 78);
+}
+/* CARD STYLING */
+.card{
+  cursor: pointer;
+}
+/* BUTTONS STYLING */
+.buttons{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-left: 0;
+  margin-right: 0;
+}
+.button{
+  display: flex;
+  width: fit-content;
+  min-width: 5.5em;
+  height: 3em;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  max-width: 80vw;
+  border-radius: 32px;
+  line-height: 1.5em;
+  /* cursor: pointer; */
+  border: 1px solid;
+}
+.deselect{
+  min-width: 7.5em;
+}
