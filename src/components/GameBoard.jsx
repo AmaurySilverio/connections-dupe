@@ -24,9 +24,6 @@ const GameBoard = () => {
           {categoriesArr.map((card) => (
             <Card key={card.id} name={card.name} />
           ))}
-          {/* {arr.map((num) => {
-            <Card key={} card={categories.indexOf(num)}/>
-          })} */}
         </div>
         <MistakesRemaining />
         <div className="buttons">
