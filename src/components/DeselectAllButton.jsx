@@ -1,9 +1,6 @@
-const DeselectAllButton = () => {
-  function handleClick() {
-    console.log("you clicked me");
-  }
+const DeselectAllButton = ({ onClick }) => {
   return (
-    <button className="button deselect" onClick={handleClick}>
+    <button className="button deselect" onClick={onClick}>
       Deselect all
     </button>
   );
