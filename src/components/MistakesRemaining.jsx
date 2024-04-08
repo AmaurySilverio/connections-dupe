@@ -4,10 +4,10 @@ const MistakesRemaining = () => {
       <h4 className="mistakes-htag">
         Mistakes Remaining:
         <span className="mistakes-remaining-bubbles-container">
-          <span className="mistakes-remaining-bubble"></span>
-          <span className="mistakes-remaining-bubble"></span>
-          <span className="mistakes-remaining-bubble"></span>
-          <span className="mistakes-remaining-bubble"></span>
+          <div className="mistakes-remaining-bubble" id="1"></div>
+          <div className="mistakes-remaining-bubble" id="2"></div>
+          <div className="mistakes-remaining-bubble" id="3"></div>
+          <div className="mistakes-remaining-bubble" id="4"></div>
         </span>
       </h4>
     </div>

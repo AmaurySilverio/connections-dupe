@@ -11,8 +11,12 @@ let categoriesArr = categories;
 const GameBoard = () => {
   const [shuffle, setShuffle] = useState(false);
   const [cardCount, setCardCount] = useState(0);
+  // maybe i can combine these two states in the future. they do esentially the same thing
   const [clickedCardsCopy, setClickedCardsCopy] = useState([]);
   const [compareCards, setCompareCards] = useState([]);
+  const [mistakesRemaining, setMistakesRemaining] = useState(4);
+  const [mistakeBubbles, setMistakeBubbles] = useState([]);
+  const [remainingCardsInPlay, setRemainingCardsInPlay] = useState([]);
   // SHUFFLE FUNCTION
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -47,6 +51,24 @@ const GameBoard = () => {
   // CARD CLICK FUNCTION
   const handleCardClick = (event) => {
     console.log("card clicked", event);
+    if (mistakeBubbles.length < 1) {
+      let mistakeBubblesDOM =
+        event.target.parentElement.nextElementSibling.children[0].children[0]
+          .children;
+      let mistakesArr = [...mistakeBubblesDOM];
+      setMistakeBubbles(mistakeBubbles.concat(mistakesArr));
+    }
+    console.log(
+      "bubbles",
+      event.target.parentElement.nextElementSibling.children[0].children[0]
+        .children
+    );
+    // let mistakeBubblesDOM =
+    //   event.target.parentElement.nextElementSibling.children[0].children[0]
+    //     .children;
+    // setMistakeBubbles(mistakeBubbles.concat(mistakeBubblesDOM));
+    console.log(mistakeBubbles);
+
     let cardAttributes = event.target.attributes;
     if (cardAttributes["hasOwnProperty"]("data-status")) {
       event.target.removeAttribute("data-status");
@@ -55,7 +77,11 @@ const GameBoard = () => {
 
       let cardId = cardAttributes["id"].value;
       setCompareCards(compareCards.filter((card) => card.id !== cardId));
-      // let cardClicked = event.target;
+      setClickedCardsCopy(
+        clickedCardsCopy.filter((card) => card.id !== cardId)
+      );
+      // WHEN I REMOVE DATASTATUS, I ALSO NEED TO REMOVE CARD FROM CARDS COPY ARRAY
+
       // setClickedCardsCopy(clickedCardsCopy.concat(cardClicked));
       // console.log(clickedCardsCopy, "clickedCardCopy");
       // WORKING ON THIS clickedCardsCopy state to hold cards clicked and remove data-catagorty set on cards once deselect all is selected
@@ -85,7 +111,12 @@ const GameBoard = () => {
     }
   };
   // SUBMIT BUTTON FUNCTION
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    // console.log(event);
+    // console.log(event.target.parentElement.previousElementSibling);
+    // let mistakeBubbles =
+    //   event.target.parentElement.previousElementSibling.children[0].children[0]
+    //     .children;
     console.log("submit clicked");
     if (cardCount !== 4) {
       console.log("You need to have four cards highlighted to submit");
@@ -93,7 +124,47 @@ const GameBoard = () => {
     } else {
       let selectedCardsArr = compareCards.map((card) => card.category);
       const allEqual = (arr) => arr.every((val) => val === arr[0]);
-      console.log(allEqual(selectedCardsArr));
+      // console.log(allEqual(selectedCardsArr));
+      if (!allEqual(selectedCardsArr)) {
+        if (mistakesRemaining === 1) {
+          alert("GAME OVER");
+        }
+        mistakeBubbles.map((bubble) => {
+          console.log("made it in");
+          if (bubble.attributes[1].value === mistakesRemaining.toString()) {
+            bubble.setAttribute("data-hidden", "hidden");
+          }
+        });
+        const updatedMistakesRemaining = mistakesRemaining - 1;
+        setMistakesRemaining(updatedMistakesRemaining);
+        console.log("mistakes remaining", updatedMistakesRemaining);
+      }
+      if (allEqual(selectedCardsArr)) {
+        console.log("Match!");
+        console.log(
+          "clickedcardscopy",
+          clickedCardsCopy,
+          "categoriesArr",
+          categoriesArr
+        );
+
+        let matchedCardIds = clickedCardsCopy.map((card) => card.id);
+
+        // clickedCardsCopy.map((card) => card.id);
+        console.log(matchedCardIds);
+        let remainingCards = categoriesArr.filter(
+          (card) => !matchedCardIds.includes(card.id)
+        );
+        setRemainingCardsInPlay(remainingCards);
+
+        categoriesArr = [...clickedCardsCopy, ...remainingCards];
+        setClickedCardsCopy([]);
+        setCompareCards([]);
+        setCardCount(0);
+
+        console.log(remainingCards);
+      }
+
       // if(allEqual(selectedCardsArr)){
 
       // }
