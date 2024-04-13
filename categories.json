@@ -1,0 +1,98 @@
+[
+  {
+    "id": "6",
+    "name": "DITCH",
+    "category": "FAIL TO ATTEND",
+    "difficulty": "MEDIUM"
+  },
+  {
+    "id": "12",
+    "name": "SWEEP",
+    "category": "DECISIVE VICTORY",
+    "difficulty": "HARD"
+  },
+  {
+    "id": "3",
+    "name": "KHAKI",
+    "category": "YELLOW-BROWN SHADES",
+    "difficulty": "EASY"
+  },
+  {
+    "id": "5",
+    "name": "CUT",
+    "category": "FAIL TO ATTEND",
+    "difficulty": "MEDIUM"
+  },
+  {
+    "id": "13",
+    "name": "CHEESE",
+    "category": "___ WHEEL",
+    "difficulty": "TRICKY"
+  },
+  {
+    "id": "2",
+    "name": "CAMEL",
+    "category": "YELLOW-BROWN SHADES",
+    "difficulty": "EASY"
+  },
+  {
+    "id": "8",
+    "name": "SKIP",
+    "category": "FAIL TO ATTEND",
+    "difficulty": "MEDIUM"
+  },
+  {
+    "id": "16",
+    "name": "PRAYER",
+    "category": "___ WHEEL",
+    "difficulty": "TRICKY"
+  },
+  {
+    "id": "9",
+    "name": "BLOWOUT",
+    "category": "DECISIVE VICTORY",
+    "difficulty": "HARD"
+  },
+  {
+    "id": "4",
+    "name": "TAN",
+    "category": "YELLOW-BROWN SHADES",
+    "difficulty": "EASY"
+  },
+  {
+    "id": "11",
+    "name": "ROUT",
+    "category": "DECISIVE VICTORY",
+    "difficulty": "HARD"
+  },
+  {
+    "id": "7",
+    "name": "MISS",
+    "category": "FAIL TO ATTEND",
+    "difficulty": "MEDIUM"
+  },
+  {
+    "id": "10",
+    "name": "ROMP",
+    "category": "DECISIVE VICTORY",
+    "difficulty": "HARD"
+  },
+  {
+    "id": "14",
+    "name": "COLOR",
+    "category": "___ WHEEL",
+    "difficulty": "TRICKY"
+  },
+  {
+    "id": "1",
+    "name": "BEIGE",
+    "category": "YELLOW-BROWN SHADES",
+    "difficulty": "EASY"
+  },
+  {
+    "id": "15",
+    "name": "HAMPSTER",
+    "category": "___ WHEEL",
+    "difficulty": "TRICKY"
+  }
+]

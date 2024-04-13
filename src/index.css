@@ -105,6 +105,23 @@ div[data-status~="clicked"]{
   background-color: rgb(90, 89, 78);
   color: rgb(255, 255, 255);
 }
+/* MATCHING BANNER STYLING */
+.banner-cardname-container{
+  font-size: 1rem;
+}
+#EASY{
+  background-color: rgb(249, 223, 109);
+}
+#MEDIUM{
+  background-color: rgb(160, 195, 90);
+}
+#HARD{
+  background-color: rgb(176, 196, 239);
+}
+#TRICKY{
+  background-color: rgb(186, 129, 197);
+}
+
 /* BUTTONS STYLING */
 .buttons{
   display: flex;

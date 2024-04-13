@@ -4,7 +4,8 @@ import ShuffleButton from "./ShuffleButton";
 import DeselectAllButton from "./DeselectAllButton";
 import SubmitButton from "./SubmitButton";
 import Card from "./Card";
-import categories from "../categories.json";
+import MatchingBanners from "./MatchingBanners";
+import categories from "../../categories.json";
 
 let categoriesArr = categories;
 
@@ -17,6 +18,7 @@ const GameBoard = () => {
   const [mistakesRemaining, setMistakesRemaining] = useState(4);
   const [mistakeBubbles, setMistakeBubbles] = useState([]);
   const [remainingCardsInPlay, setRemainingCardsInPlay] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
   // SHUFFLE FUNCTION
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -87,7 +89,6 @@ const GameBoard = () => {
       // WORKING ON THIS clickedCardsCopy state to hold cards clicked and remove data-catagorty set on cards once deselect all is selected
     } else {
       if (cardCount === 4) {
-        console.log("count = 4");
         return;
       }
       event.target.setAttribute("data-status", "clicked");
@@ -96,10 +97,12 @@ const GameBoard = () => {
       let cardName = event.target.innerHTML;
       let cardId = cardAttributes["id"].value;
       let cardCategory = cardAttributes["data-category"].value;
+      let cardDifficulty = cardAttributes["data-difficulty"].value;
       const clickedCard = {
         name: cardName,
         id: cardId,
         category: cardCategory,
+        difficulty: cardDifficulty,
       };
       setCompareCards(compareCards.concat(clickedCard));
       let cardClicked = event.target;
@@ -124,7 +127,6 @@ const GameBoard = () => {
     } else {
       let selectedCardsArr = compareCards.map((card) => card.category);
       const allEqual = (arr) => arr.every((val) => val === arr[0]);
-      // console.log(allEqual(selectedCardsArr));
       if (!allEqual(selectedCardsArr)) {
         if (mistakesRemaining === 1) {
           alert("GAME OVER");
@@ -150,24 +152,31 @@ const GameBoard = () => {
 
         let matchedCardIds = clickedCardsCopy.map((card) => card.id);
 
-        // clickedCardsCopy.map((card) => card.id);
         console.log(matchedCardIds);
         let remainingCards = categoriesArr.filter(
           (card) => !matchedCardIds.includes(card.id)
         );
         setRemainingCardsInPlay(remainingCards);
-
-        categoriesArr = [...clickedCardsCopy, ...remainingCards];
+        let matchingCardsBannerData = {
+          names: {
+            name1: compareCards[0].name,
+            name2: compareCards[1].name,
+            name3: compareCards[2].name,
+            name4: compareCards[3].name,
+          },
+          category: selectedCardsArr[0],
+          difficulty: compareCards[0].difficulty,
+          id: matchedCards.length + 1,
+        };
+        setMatchedCards(matchedCards.concat(matchingCardsBannerData));
+        // let matchedCards = [...clickedCardsCopy];
+        categoriesArr = [...remainingCards];
         setClickedCardsCopy([]);
         setCompareCards([]);
         setCardCount(0);
 
         console.log(remainingCards);
       }
-
-      // if(allEqual(selectedCardsArr)){
-
-      // }
     }
   };
 
@@ -176,12 +185,24 @@ const GameBoard = () => {
       <h3 className="create-title">Create four groups of four!</h3>
       <div className="gameboard-container">
         <div className="grid grid-cols-4 gap-2">
+          {matchedCards.length >= 1
+            ? matchedCards.map((card) => (
+                <MatchingBanners
+                  key={card.id}
+                  names={card.names}
+                  category={card.category}
+                  id={card.difficulty}
+                />
+              ))
+            : console.log("matchedBannerlog")}
+
           {categoriesArr.map((card) => (
             <Card
               key={card.id}
               id={card.id}
               name={card.name}
               category={card.category}
+              difficulty={card.difficulty}
               onClick={handleCardClick}
             />
           ))}
