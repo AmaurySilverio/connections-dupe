@@ -1,6 +1,11 @@
-const DeselectAllButton = ({ onClick }) => {
+const DeselectAllButton = ({ onClick, disabled }) => {
   return (
-    <button className="button deselect" onClick={onClick}>
+    <button
+      disabled={disabled}
+      className="button deselect"
+      id="deselect"
+      onClick={onClick}
+    >
       Deselect all
     </button>
   );

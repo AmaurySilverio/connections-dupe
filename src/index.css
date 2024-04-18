@@ -39,6 +39,9 @@
   justify-content: flex-end;
   padding: 10px 20px;
 }
+#instructions-icon{
+  /* cursor: pointer; */
+}
 
 /* GAMEBOARD STYLING */
 .create-title{
@@ -123,6 +126,18 @@ div[data-status~="clicked"]{
 }
 
 /* BUTTONS STYLING */
+/* .disabled-button{
+  color: rgb(127, 127, 127);
+    border-color: rgb(127, 127, 127);
+} */
+.instructions-container > button{
+  font-size: 1.125em;
+  line-height: 45px;
+  display: inline-block;
+  padding: 0px 5px;
+  border: none;
+  height: 35px;
+}
 .buttons{
   display: flex;
   justify-content: center;
@@ -148,3 +163,96 @@ div[data-status~="clicked"]{
 .deselect{
   min-width: 7.5em;
 }
+.deselect:disabled{
+  color: rgb(127, 127, 127);
+  border-color: rgb(127, 127, 127);
+}
+button[id~="submit"]{
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+.submit:disabled{
+  color: rgb(127, 127, 127);
+  border-color: rgb(127, 127, 127);
+}
+/* WINNER MODAL */
+#winner-modal-wrapper{
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: nowrap;
+  position: absolute;
+  align-items: center;
+  z-index: 99;
+}
+.winner-modal-container{
+  display: flex;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px -1px rgba(0,0,0,.3);
+  overflow-y: auto;
+  box-sizing: border-box;
+  outline: none;
+  padding: 36px 0 0;
+  /* padding: 24px; */
+  pointer-events: visible;
+  position: relative;
+  min-height: 50%;
+  max-height: calc(100% - 32px);
+  /* width: 100%;
+  width: 100%; */
+  z-index: 102;
+  width: 540px;
+}
+.winner-modal-article{
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  flex-wrap: nowrap;
+  /* font-size: 16px; */
+  font-size: 1rem;
+  /* line-height: 20.8px; */
+  line-height: 1.3rem;
+  width: 100%;
+}
+.winner-modal-content{
+  flex-direction: column;
+  gap: 24px;
+  /* margin: auto; */
+  display: flex;
+  text-align: center;
+  padding: 36px 0 32px;
+}
+.winner-modal-content > h2{
+  font-size: 36px;
+}
+.winner-modal-content > h3{
+  font-weight: normal;
+}
+.winner-button-container{
+  color: #000;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  /* letter-spacing: .16px; */
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 1.2rem;
+}
+.close{
+  display: inline-block;
+  margin-left: 4px;
+}
+
+

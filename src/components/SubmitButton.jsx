@@ -1,6 +1,6 @@
-const SubmitButton = ({ onClick }) => {
+const SubmitButton = ({ onClick, disabled }) => {
   return (
-    <button className="button" onClick={onClick}>
+    <button className="button submit" disabled={disabled} onClick={onClick}>
       Submit
     </button>
   );
