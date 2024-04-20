@@ -138,6 +138,17 @@ div[data-status~="clicked"]{
   border: none;
   height: 35px;
 }
+.instructions-button:hover{
+  background-color: rgb(211, 211, 211);
+}
+/* .instructions-button-container{
+  font-size: 1.125em;
+  line-height: 45px;
+  display: inline-block;
+  padding: 0px 5px;
+  border: none;
+  height: 35px;
+} */
 .buttons{
   display: flex;
   justify-content: center;
@@ -236,7 +247,72 @@ button[id~="submit"]{
 .winner-modal-content > h3{
   font-weight: normal;
 }
-.winner-button-container{
+.winner-modal-button-container{
+  color: #000;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 20px;
+  /* letter-spacing: .16px; */
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 1.2rem;
+}
+/* .winner-modal-button:hover{
+  text-decoration: underline;
+} */
+.close{
+  display: inline-block;
+  margin-left: 4px;
+}
+.display-none{
+  display: none;
+}
+/* INSTRUCTIONS MODAL */
+.instructions-modal-wrapper{
+  height: 100%;
+  left: 0;
+  /* top: 0;
+  right: 0; */
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: nowrap;
+  position: fixed;
+  align-items: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.678);
+}
+.instructions-modal-container{
+  display: flex;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px -1px rgba(0,0,0,.3);
+  overflow-y: auto;
+  box-sizing: border-box;
+  outline: none;
+  padding: 36px 0 0;
+  /* padding: 24px; */
+  pointer-events: visible;
+  position: relative;
+  min-height: 50%;
+  max-height: calc(100% - 32px);
+  /* width: 100%;
+  width: 100%; */
+  z-index: 102;
+  width: 540px;
+  padding: 48px 56px;
+}
+.instructions-modal-content{
+
+}
+.instructions-modal-button-container{
   color: #000;
   text-align: right;
   font-size: 16px;
@@ -251,13 +327,90 @@ button[id~="submit"]{
   top: 0;
   padding: 1.2rem;
 }
-.close{
-  display: inline-block;
-  margin-left: 4px;
+.modal-header{
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 4px;
 }
-.display-none{
-  display: none;
+.module-bold{
+  font-weight: 700;
 }
-
+.modal-description{
+  font-size: 20px;
+}
+.modal-system-body{
+  font-size: 16px;
+  line-height: 20px;
+}
+.bullet-list{
+  list-style: initial;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 20px;
+}
+.how-to-play-list-module{
+  list-style: initial;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+.how-to-play-list-item{
+  display: list-item;
+  margin-bottom: 4px;
+}
+.how-to-play-list-item-module-display{
+  display: inline-flex;
+  margin-right: 3px;
+}
+.how-to-play-module-message{
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+.how-to-play-module-message-final{
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+.how-to-play-module-difficulty{
+  margin-left: 11px;
+  display: flex;
+  flex-direction: column;
+}
+.how-to-play-category-li{
+  display: inline-flex;
+    height: 20px;
+    margin-bottom: 4px;
+}
+.how-to-play-category-color{
+  width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-flex;
+    border-radius: 3px;
+}
+.bg-yellow{
+  background-color: rgb(249, 223, 109)
+}
+.bg-green{
+  background-color: rgb(160, 195, 90)
+}
+.bg-blue{
+  background-color: rgb(176, 196, 239)
+}
+.bg-purple{
+  background-color: rgb(186, 129, 197)
+}
+.arrow-module-container{
+  width: 100%;
+  position: relative;
+  display: block;
+}
+.arrow-module{
+  background: url(../photos/help-arrow.svg);
+  background-size: contain;
+  height: 45px;
+  width: 8px;
+  position: absolute;
+  left: 46px;
+  top: 24px;
+}
 
 

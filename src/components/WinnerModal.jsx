@@ -10,8 +10,8 @@ const WinnerModal = ({ show, onClick, closeModal }) => {
     <div id={showHideClassName}>
       {/* id="winner-modal-wrapper" */}
       <div className="winner-modal-container">
-        <div className="winner-button-container" onClick={onClick}>
-          <button>
+        <div className="winner-modal-button-container" onClick={onClick}>
+          <button className="winner-modal-button">
             Back to game
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +33,7 @@ const WinnerModal = ({ show, onClick, closeModal }) => {
           <div className="winner-modal-content">
             <h2>Good Job!</h2>
             <h3>Connections #1</h3>
+            <div className="attempt-visual"></div>
           </div>
         </article>
       </div>

@@ -254,6 +254,7 @@ const GameBoard = () => {
             show={matchedCards.length === 4}
             onClick={handleModalClose}
             closeModal={modal}
+            // attempts={}
             // onClick={e.stopPropagation()}
           />
           {categoriesArr.map((card) => (

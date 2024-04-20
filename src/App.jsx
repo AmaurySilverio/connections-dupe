@@ -4,25 +4,11 @@ import Instructions from "./components/Instructions";
 import GameBoard from "./components/GameBoard";
 
 function App() {
-  const handleInstructionsClick = () => {
-    console.log("clicked");
-  };
-  const handleMouseEnter = (event) => {
-    event.target.style.background = "Gainsboro";
-  };
-  const handleMouseLeave = (event) => {
-    event.target.style.background = "white";
-  };
-
   return (
     <>
       <Header />
       <Hero />
-      <Instructions
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleInstructionsClick}
-      />
+      <Instructions />
       <GameBoard />
     </>
   );

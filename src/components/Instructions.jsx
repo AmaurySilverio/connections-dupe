@@ -1,11 +1,25 @@
-const Instructions = ({ onClick, onMouseEnter, onMouseLeave }) => {
+import { useState } from "react";
+import InstructionsModal from "./InstructionsModal";
+
+const Instructions = () => {
+  const [instructions, setInstructions] = useState(false);
+  const handleInstructionsClick = () => {
+    console.log("clicked");
+    setInstructions(true);
+  };
+  const handleModalClose = () => {
+    console.log("modal close clicked");
+    setInstructions(false);
+  };
   return (
     <>
+      <InstructionsModal show={instructions} onClick={handleModalClose} />
       <div className="instructions-container">
+        {/* <div className="instructions-button-container" onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave} onClick={handleInstructionsClick}> */}
         <button
-          onClick={onClick}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          className="instructions-button"
+          onClick={handleInstructionsClick}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,6 +38,7 @@ const Instructions = ({ onClick, onMouseEnter, onMouseLeave }) => {
           </svg>
         </button>
       </div>
+      {/* </div> */}
     </>
   );
 };
