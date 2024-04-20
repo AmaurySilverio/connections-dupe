@@ -3,6 +3,7 @@ import MistakesRemaining from "./MistakesRemaining";
 import ShuffleButton from "./ShuffleButton";
 import DeselectAllButton from "./DeselectAllButton";
 import SubmitButton from "./SubmitButton";
+import ViewResultsButton from "./ViewResultsButton";
 import Card from "./Card";
 import MatchingBanners from "./MatchingBanners";
 import WinnerModal from "./WinnerModal";
@@ -20,6 +21,7 @@ const GameBoard = () => {
   const [mistakeBubbles, setMistakeBubbles] = useState([]);
   const [remainingCardsInPlay, setRemainingCardsInPlay] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
+  const [modal, setModal] = useState(false);
   // SHUFFLE FUNCTION
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -220,9 +222,12 @@ const GameBoard = () => {
     }
   };
   const handleModalClose = (event) => {
-    console.log(event);
-
+    setModal(true);
     console.log("closed");
+  };
+  const handleViewResults = () => {
+    setModal(false);
+    console.log("JAJAJA");
   };
 
   return (
@@ -248,6 +253,8 @@ const GameBoard = () => {
           <WinnerModal
             show={matchedCards.length === 4}
             onClick={handleModalClose}
+            closeModal={modal}
+            // onClick={e.stopPropagation()}
           />
           {categoriesArr.map((card) => (
             <Card
@@ -262,12 +269,24 @@ const GameBoard = () => {
         </div>
         <MistakesRemaining />
         <div className="buttons">
-          <ShuffleButton onClick={handleShuffle} />
+          <ShuffleButton
+            show={matchedCards.length <= 3}
+            onClick={handleShuffle}
+          />
           <DeselectAllButton
+            show={matchedCards.length <= 3}
             disabled={!cardCount > 0}
             onClick={handleDeselectAll}
           />
-          <SubmitButton disabled={cardCount !== 4} onClick={handleSubmit} />
+          <SubmitButton
+            show={matchedCards.length <= 3}
+            disabled={cardCount !== 4}
+            onClick={handleSubmit}
+          />
+          <ViewResultsButton
+            show={matchedCards.length === 4}
+            onClick={handleViewResults}
+          />
         </div>
       </div>
     </>

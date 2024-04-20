@@ -1,15 +1,7 @@
-const WinnerModal = ({ show, onClick, closeModal }) => {
-  if (!show) {
-    return null;
-  }
-  if (closeModal) {
-    return null;
-  }
-  const showHideClassName = show ? "winner-modal-wrapper" : "display-none";
+const InstructionsModal = () => {
   return (
-    <div id={showHideClassName}>
-      {/* id="winner-modal-wrapper" */}
-      <div className="winner-modal-container">
+    <div className="instructions-modal-wrapper">
+      <div className="instructions-modal-content">
         <div className="winner-button-container" onClick={onClick}>
           <button>
             Back to game
@@ -29,15 +21,9 @@ const WinnerModal = ({ show, onClick, closeModal }) => {
             </svg>
           </button>
         </div>
-        <article className="winner-modal-article">
-          <div className="winner-modal-content">
-            <h2>Good Job!</h2>
-            <h3>Connections #1</h3>
-          </div>
-        </article>
       </div>
     </div>
   );
 };
 
-export default WinnerModal;
+export default InstructionsModal;

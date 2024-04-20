@@ -1,5 +1,5 @@
-const DeselectAllButton = ({ onClick, disabled }) => {
-  return (
+const DeselectAllButton = ({ onClick, disabled, show }) => {
+  return show ? (
     <button
       disabled={disabled}
       className="button deselect"
@@ -8,7 +8,7 @@ const DeselectAllButton = ({ onClick, disabled }) => {
     >
       Deselect all
     </button>
-  );
+  ) : null;
 };
 
 export default DeselectAllButton;
