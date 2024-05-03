@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MistakesRemaining from "./MistakesRemaining";
 import ShuffleButton from "./ShuffleButton";
 import DeselectAllButton from "./DeselectAllButton";
@@ -9,7 +9,7 @@ import MatchingBanners from "./MatchingBanners";
 import WinnerModal from "./WinnerModal";
 import categories from "../../categories.json";
 
-let categoriesArr = categories;
+let categoriesArr = [...categories];
 
 const GameBoard = () => {
   const [shuffle, setShuffle] = useState(false);
@@ -21,7 +21,139 @@ const GameBoard = () => {
   const [mistakeBubbles, setMistakeBubbles] = useState([]);
   const [remainingCardsInPlay, setRemainingCardsInPlay] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
+  const [attempts, setAttempts] = useState([]);
   const [modal, setModal] = useState(false);
+  const [sortedCategories, setSortedCategories] = useState([]);
+
+  // MATCHING CARD BANNERS
+  let categoriesArrCopy = [...categoriesArr];
+  let sortedCards = categoriesArrCopy.sort(function (a, b) {
+    return a.id - b.id;
+  });
+  console.log(sortedCards);
+  let sortedCardNames = sortedCards.map((card) => card.name);
+  console.log(sortedCardNames);
+  // const winningCards = [];
+  useEffect(() => {
+    let sortedCategoriesArr = [
+      {
+        names: {
+          name1: sortedCardNames[0],
+          name2: sortedCardNames[1],
+          name3: sortedCardNames[2],
+          name4: sortedCardNames[3],
+        },
+        id: sortedCards[0].id,
+        category: sortedCards[0].category,
+        difficulty: sortedCards[0].difficulty,
+      },
+      {
+        names: {
+          name1: sortedCardNames[4],
+          name2: sortedCardNames[5],
+          name3: sortedCardNames[6],
+          name4: sortedCardNames[7],
+        },
+        id: sortedCards[4].id,
+        category: sortedCards[4].category,
+        difficulty: sortedCards[4].difficulty,
+      },
+      {
+        names: {
+          name1: sortedCardNames[8],
+          name2: sortedCardNames[9],
+          name3: sortedCardNames[10],
+          name4: sortedCardNames[11],
+        },
+        id: sortedCards[8].id,
+        category: sortedCards[8].category,
+        difficulty: sortedCards[8].difficulty,
+      },
+      {
+        names: {
+          name1: sortedCardNames[12],
+          name2: sortedCardNames[13],
+          name3: sortedCardNames[14],
+          name4: sortedCardNames[15],
+        },
+        id: sortedCards[12].id,
+        category: sortedCards[12].category,
+        difficulty: sortedCards[12].difficulty,
+      },
+    ];
+    setSortedCategories(sortedCategories.concat(sortedCategoriesArr));
+    console.log(sortedCategoriesArr);
+  }, []);
+  // setTimeout(() => {
+  //   let sortedCategories = [
+  //     {
+  //       EASY: {
+  //         names: {
+  //           name1: sortedCardNames[0],
+  //           name2: sortedCardNames[1],
+  //           name3: sortedCardNames[2],
+  //           name4: sortedCardNames[3],
+  //         },
+  //         id: 1,
+  //         category: sortedCards[0].category,
+  //         difficulty: sortedCards[0].difficulty,
+  //       },
+  //       MEDIUM: {
+  //         names: {
+  //           name1: sortedCardNames[4],
+  //           name2: sortedCardNames[5],
+  //           name3: sortedCardNames[6],
+  //           name4: sortedCardNames[7],
+  //         },
+  //         id: 2,
+  //         category: sortedCards[4].category,
+  //         difficulty: sortedCards[4].difficulty,
+  //       },
+  //       HARD: {
+  //         names: {
+  //           name1: sortedCardNames[8],
+  //           name2: sortedCardNames[9],
+  //           name3: sortedCardNames[10],
+  //           name4: sortedCardNames[11],
+  //         },
+  //         id: 3,
+  //         category: sortedCards[8].category,
+  //         difficulty: sortedCards[8].difficulty,
+  //       },
+  //       TRICKY: {
+  //         names: {
+  //           name1: sortedCardNames[12],
+  //           name2: sortedCardNames[13],
+  //           name3: sortedCardNames[14],
+  //           name4: sortedCardNames[15],
+  //         },
+  //         id: 4,
+  //         category: sortedCards[12].category,
+  //         difficulty: sortedCards[12].difficulty,
+  //       },
+  //     },
+  //   ];
+  //   console.log(sortedCategories);
+  // }, 1000);
+
+  // for (let i = 0; i <= 3; i++) {
+  //   // let matchingCardsBannerData = {
+  //   //   names: {
+  //   //     name1: sortedCards[0].name,
+  //   //     name2: sortedCards[1].name,
+  //   //     name3: sortedCards[2].name,
+  //   //     name4: sortedCards[3].name,
+  //   //   },
+  //   //   category: sortedCards[3].category,
+  //   //   difficulty: sortedCards[3].difficulty,
+  //   //   id: winningCards.length + 1,
+  //   // };
+
+  //   console.log(matchingCardsBannerData);
+  //   winningCards.concat(matchingCardsBannerData);
+  //   console.log(winningCards);
+  // }
+  // console.log(winningCards);
   // SHUFFLE FUNCTION
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -165,11 +297,72 @@ const GameBoard = () => {
       console.log("You need to have four cards highlighted to submit");
       return;
     } else {
+      let attemptedCardsDifficulty = compareCards.map(
+        (card) => card.difficulty
+      );
+      let attemptCardsIDs = compareCards.map((card) => card.id);
+      let currentAttempt = {
+        difficulty: attemptedCardsDifficulty,
+        id: attemptCardsIDs,
+      };
+      setAttempts(attempts.concat(currentAttempt));
       let selectedCardsArr = compareCards.map((card) => card.category);
       const allEqual = (arr) => arr.every((val) => val === arr[0]);
       if (!allEqual(selectedCardsArr)) {
         if (mistakesRemaining === 1) {
-          alert("GAME OVER");
+          // compare matchedCards state to randomVarr array and see whats missing.
+          // push whats missing into matched cards state
+          let matchedCardsDifficulty = matchedCards.map(
+            (card) => card.difficulty
+          );
+          let remainingSortedCategories = sortedCategories.filter(
+            (card) => !matchedCardsDifficulty.includes(card.difficulty)
+          );
+          console.log(remainingSortedCategories, "HELLO YOU");
+          setMatchedCards(matchedCards.concat(remainingSortedCategories));
+
+          categoriesArr = [];
+          setClickedCardsCopy([]);
+          setCompareCards([]);
+          setCardCount(0);
+          // alert("GAME OVER");
+          // let solution = [{
+          //   name: "",
+          //   category: "",
+          //   difficulty: "",
+          // }]
+          // let sortedCards = categoriesArr.sort(function (a, b) {
+          //   return a.id - b.id;
+          // });
+          // console.log(sortedCards);
+          // for (let i = 0; i <= 3; i++) {
+          //   let matchingCardsBannerData = {
+          //     names: {
+          //       name1: sortedCards[i].name,
+          //       name2: sortedCards[i + 1].name,
+          //       name3: sortedCards[i + 2].name,
+          //       name4: sortedCards[i + 3].name,
+          //     },
+          //     category: sortedCards[i + 3].category,
+          //     difficulty: sortedCards[i + 3].difficulty,
+          //     id: matchedCards.length + 1,
+          //   };
+          //   console.log(matchingCardsBannerData);
+          //   setMatchedCards(matchedCards.concat(matchingCardsBannerData));
+          //   console.log(matchedCards);
+          // }
+          // let matchingCardsBannerData = {
+          //   names: {
+          //     name1: sortedCards[0].name,
+          //     name2: sortedCards[1].name,
+          //     name3: sortedCards[2].name,
+          //     name4: sortedCards[3].name,
+          //   },
+          //   category: sortedCards[0],
+          //   difficulty: sortedCards[0].difficulty,
+          //   id: matchedCards.length + 1,
+          // };
+          // setMatchedCards(matchedCards.concat(matchingCardsBannerData));
         }
         mistakeBubbles.map((bubble) => {
           console.log("made it in");
@@ -180,6 +373,7 @@ const GameBoard = () => {
         const updatedMistakesRemaining = mistakesRemaining - 1;
         setMistakesRemaining(updatedMistakesRemaining);
         console.log("mistakes remaining", updatedMistakesRemaining);
+        // add logic to add data to matched banners
       }
       if (allEqual(selectedCardsArr)) {
         console.log("Match!");
@@ -191,12 +385,20 @@ const GameBoard = () => {
         );
 
         let matchedCardIds = clickedCardsCopy.map((card) => card.id);
-
+        let matchedCardsCategory = compareCards.map((card) => card.difficulty);
+        // let matchedCardIdsCopy = [...matchedCardIds];
+        // matchedCardIdsCopy.sort((a, b) => a - b);
+        // console.log(matchedCardIdsCopy);
+        matchedCardIds.sort((a, b) => a - b);
+        console.log(matchedCardsCategory);
         console.log(matchedCardIds);
         let remainingCards = categoriesArr.filter(
           (card) => !matchedCardIds.includes(card.id)
         );
         setRemainingCardsInPlay(remainingCards);
+        let difficultyKey = matchedCardsCategory[0];
+        let obj = { difficulty: difficultyKey };
+        console.log(obj);
         let matchingCardsBannerData = {
           names: {
             name1: compareCards[0].name,
@@ -206,8 +408,10 @@ const GameBoard = () => {
           },
           category: selectedCardsArr[0],
           difficulty: compareCards[0].difficulty,
-          id: matchedCards.length + 1,
+          id: matchedCardIds[0],
+          //make id's same!!!!!
         };
+        console.log(matchingCardsBannerData);
         setMatchedCards(matchedCards.concat(matchingCardsBannerData));
         // let matchedCards = [...clickedCardsCopy];
         categoriesArr = [...remainingCards];
@@ -215,12 +419,14 @@ const GameBoard = () => {
         setCompareCards([]);
         setCardCount(0);
         console.log(remainingCards);
+        console.log(matchedCards);
         // if (matchedCards === 4) {
         //   winnerModal();
         // }
       }
     }
   };
+  console.log(matchedCards);
   const handleModalClose = (event) => {
     setModal(true);
     console.log("closed");
@@ -235,7 +441,7 @@ const GameBoard = () => {
       <h3 className="create-title">Create four groups of four!</h3>
       <div className="gameboard-container">
         <div className="grid grid-cols-4 gap-2">
-          {matchedCards.length >= 1
+          {matchedCards.length >= 1 && mistakesRemaining >= 1
             ? matchedCards.map((card) => (
                 <MatchingBanners
                   key={card.id}
@@ -245,17 +451,29 @@ const GameBoard = () => {
                 />
               ))
             : console.log("Welcome to the console! Are you enjoying the game?")}
-          {/* {matchedCards.length === 4 ? (
-            <WinnerModal />
-          ) : (
-            console.log("Next Time!")
-          )} */}
+          {mistakesRemaining === 0
+            ? matchedCards.map((card) => (
+                <MatchingBanners
+                  key={card.id}
+                  names={card.names}
+                  category={card.category}
+                  id={card.difficulty}
+                />
+              ))
+            : console.log("Welcome to the console! Are you enjoying the game?")}
           <WinnerModal
-            show={matchedCards.length === 4}
+            show={matchedCards.length === 4 && mistakesRemaining >= 1}
             onClick={handleModalClose}
             closeModal={modal}
-            // attempts={}
-            // onClick={e.stopPropagation()}
+            attempts={attempts}
+            text="Good job!"
+          />
+          <WinnerModal
+            show={mistakesRemaining === 0}
+            onClick={handleModalClose}
+            closeModal={modal}
+            attempts={attempts}
+            text="Next Time!"
           />
           {categoriesArr.map((card) => (
             <Card
@@ -268,24 +486,26 @@ const GameBoard = () => {
             />
           ))}
         </div>
-        <MistakesRemaining />
+        <MistakesRemaining
+          show={matchedCards.length <= 3 && mistakesRemaining >= 1}
+        />
         <div className="buttons">
           <ShuffleButton
-            show={matchedCards.length <= 3}
+            show={matchedCards.length <= 3 && mistakesRemaining >= 1}
             onClick={handleShuffle}
           />
           <DeselectAllButton
-            show={matchedCards.length <= 3}
+            show={matchedCards.length <= 3 && mistakesRemaining >= 1}
             disabled={!cardCount > 0}
             onClick={handleDeselectAll}
           />
           <SubmitButton
-            show={matchedCards.length <= 3}
+            show={matchedCards.length <= 3 && mistakesRemaining >= 1}
             disabled={cardCount !== 4}
             onClick={handleSubmit}
           />
           <ViewResultsButton
-            show={matchedCards.length === 4}
+            show={matchedCards.length === 4 || mistakesRemaining === 0}
             onClick={handleViewResults}
           />
         </div>

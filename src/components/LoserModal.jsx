@@ -1,8 +1,4 @@
-import { createElement } from "react";
-import ShareButton from "./ShareButton";
-import CreateButton from "./CreateButton";
-
-const WinnerModal = ({ show, onClick, closeModal, attempts, text }) => {
+const LoserModal = ({ show, onClick, closeModal, attempts }) => {
   if (!show) {
     return null;
   }
@@ -86,26 +82,16 @@ const WinnerModal = ({ show, onClick, closeModal, attempts, text }) => {
         </div>
         <article className="winner-modal-article">
           <div className="winner-modal-content">
-            <h2>{text}</h2>
+            <h2>Good Job!</h2>
             <h3>Connections #1</h3>
             <div className="attempts-visual-container">
               <div id="attempts-visual-row" className="grid grid-cols-4"></div>
-              {/* <div className="attempts-visual-row">
-                <span className="attempts-visual-block"></span>
-                <span className="attempts-visual-block"></span>
-                <span className="attempts-visual-block"></span>
-                <span className="attempts-visual-block"></span>
-              </div> */}
             </div>
           </div>
         </article>
-        <div className="buttons modalButtons">
-          <ShareButton onClick={() => console.log("clicked")} />
-          <CreateButton onClick={() => console.log("clicked")} />
-        </div>
       </div>
     </div>
   );
 };
 
-export default WinnerModal;
+export default LoserModal;

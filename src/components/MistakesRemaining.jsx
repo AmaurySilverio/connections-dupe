@@ -1,5 +1,5 @@
-const MistakesRemaining = () => {
-  return (
+const MistakesRemaining = ({ show }) => {
+  return show ? (
     <div className="mistakes-container">
       <h4 className="mistakes-htag">
         Mistakes Remaining:
@@ -11,7 +11,7 @@ const MistakesRemaining = () => {
         </span>
       </h4>
     </div>
-  );
+  ) : null;
 };
 
 export default MistakesRemaining;
