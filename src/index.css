@@ -7,12 +7,37 @@
   display: flex;
     /* flex-direction: row; */
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     height: 45px;
     font-size: 28px;
     font-weight: bold;
     margin-top: 5px;
+    padding: 0 10px;
     border-bottom: 0.2px solid black;
+}
+.login-button-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  height: 36px;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  color: #000;
+  background-color: #fff;
+  margin-left: 8px;
+  padding: 1px 33px 0;
+  cursor: pointer;
+}
+.login-button-container:hover{
+  color: #fff;
+  border: 1px solid #f4f4f4;
+  background-color: #000;
+}
+.login-button-container > button{
+  letter-spacing: .045em;
 }
 
 /* HERO STYLING */
@@ -104,13 +129,40 @@ div[data-hidden~="hidden"]{
 .card{
   cursor: pointer;
 }
+.card-submitted {
+  animation-name: rotate;
+  animation-duration: 0.7s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 div[data-status~="clicked"]{
   background-color: rgb(90, 89, 78);
   color: rgb(255, 255, 255);
 }
+/* SAME GUESS MODAL STYLING */
+.same-guess-container{
+  background-color: #000;
+  color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  margin: auto;
+  height: 40px;
+  width: 157px;
+}
+
 /* MATCHING BANNER STYLING */
 .banner-cardname-container{
   font-size: 1rem;
+  font-weight: normal;
 }
 #EASY{
   background-color: rgb(249, 223, 109);

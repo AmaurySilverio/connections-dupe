@@ -9,6 +9,7 @@ const WinnerModal = ({ show, onClick, closeModal, attempts, text }) => {
   if (closeModal) {
     return null;
   }
+
   const showHideClassName = show ? "winner-modal-wrapper" : "display-none";
 
   let attemptsInColor = [];
@@ -88,14 +89,9 @@ const WinnerModal = ({ show, onClick, closeModal, attempts, text }) => {
           <div className="winner-modal-content">
             <h2>{text}</h2>
             <h3>Connections #1</h3>
+            <h3>Your attempts are below.</h3>
             <div className="attempts-visual-container">
               <div id="attempts-visual-row" className="grid grid-cols-4"></div>
-              {/* <div className="attempts-visual-row">
-                <span className="attempts-visual-block"></span>
-                <span className="attempts-visual-block"></span>
-                <span className="attempts-visual-block"></span>
-                <span className="attempts-visual-block"></span>
-              </div> */}
             </div>
           </div>
         </article>
