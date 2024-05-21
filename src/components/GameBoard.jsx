@@ -6,7 +6,7 @@ import SubmitButton from "./SubmitButton";
 import ViewResultsButton from "./ViewResultsButton";
 import Card from "./Card";
 import MatchingBanners from "./MatchingBanners";
-import WinnerModal from "./WinnerModal";
+import ResultsModal from "./ResultsModal";
 import SameGuess from "./SameGuess";
 import categories from "../../categories.json";
 
@@ -26,16 +26,14 @@ const GameBoard = () => {
   const [modal, setModal] = useState(false);
   const [sameGuess, setSameGuess] = useState(false);
   const [sortedCategories, setSortedCategories] = useState([]);
-  const [showWinnerModal, setShowWinnerModal] = useState(false);
+  const [showResultsModal, setShowResultsModal] = useState(false);
 
   // MATCHING CARD BANNERS
   let categoriesArrCopy = [...categoriesArr];
   let sortedCards = categoriesArrCopy.sort(function (a, b) {
     return a.id - b.id;
   });
-  console.log(sortedCards);
   let sortedCardNames = sortedCards.map((card) => card.name);
-  console.log(sortedCardNames);
   useEffect(() => {
     let sortedCategoriesArr = [
       {
@@ -84,15 +82,14 @@ const GameBoard = () => {
       },
     ];
     setSortedCategories(sortedCategories.concat(sortedCategoriesArr));
-    console.log(sortedCategoriesArr);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWinnerModal(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowResultsModal(true);
+  //   }, 5000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   // SHUFFLE FUNCTION
   const shuffleArray = (array) => {
@@ -108,26 +105,6 @@ const GameBoard = () => {
   };
   // DESELECTALL BUTTON FUNCTION
   const handleDeselectAll = () => {
-    // console.log(event.target.parentElement.parentElement.children[0].children);
-    // const cards =
-    //   event.target.parentElement.parentElement.childNodes[0].children;
-    // console.log(cards[0].dataset);
-    // console.log(cards);
-    // console.log(cards[0].map((card) => card));
-
-    // let clickedCardsAttributes = clickedCardsCopy.map((card) => card.dataset);
-    // let clickedCardsDataSet = clickedCardsAttributes.map((card) => card.status);
-    // console.log(clickedCardsDataSet);
-    // if (cardCount >= 1) {
-    //   setClickedCardsCopy(
-    //     clickedCardsCopy.map((card) => card.removeAttribute("data-status"))
-    //   );
-    //   setClickedCardsCopy([]);
-    //   setCompareCards([]);
-    //   setCardCount(0);
-    // }
-    // document.getElementsByClassName("deselect").disabled = false;
-    console.log("insidde deselect button");
     setClickedCardsCopy(
       clickedCardsCopy.map((card) => card.removeAttribute("data-status"))
     );
@@ -135,21 +112,9 @@ const GameBoard = () => {
     setCompareCards([]);
     setCardCount(0);
   };
-  // const fourCardsSelected = () => {
-  //   if (cardCount === 4) {
-  //     setSubmitButton(true);
-  //     console.log(submitButton);
-  //   }
-  // };
-  // fourCardsSelected();
+
   // CARD CLICK FUNCTION
   const handleCardClick = (event) => {
-    // let example = document.getElementById("deselect");
-    // console.log(example, "deselect button");
-    // example.removeAttribute("onClick");
-    // console.log(example, "deselect button");
-
-    console.log("card clicked", event);
     if (mistakeBubbles.length < 1) {
       let mistakeBubblesDOM =
         event.target.parentElement.nextElementSibling.children[0].children[0]
@@ -157,16 +122,6 @@ const GameBoard = () => {
       let mistakesArr = [...mistakeBubblesDOM];
       setMistakeBubbles(mistakeBubbles.concat(mistakesArr));
     }
-    console.log(
-      "bubbles",
-      event.target.parentElement.nextElementSibling.children[0].children[0]
-        .children
-    );
-    // let mistakeBubblesDOM =
-    //   event.target.parentElement.nextElementSibling.children[0].children[0]
-    //     .children;
-    // setMistakeBubbles(mistakeBubbles.concat(mistakeBubblesDOM));
-    console.log(mistakeBubbles);
 
     let cardAttributes = event.target.attributes;
     // LOGIC FOR CLICKING CLICKED CARD
@@ -174,32 +129,19 @@ const GameBoard = () => {
       event.target.removeAttribute("data-status");
       const updatedCardCount = cardCount - 1;
       setCardCount(updatedCardCount);
-      console.log(cardCount, "CC");
       let cardId = cardAttributes["id"].value;
       setCompareCards(compareCards.filter((card) => card.id !== cardId));
       setClickedCardsCopy(
         clickedCardsCopy.filter((card) => card.id !== cardId)
       );
-      // if (cardCount === 0) {
-      //   setdeselectAllButton(true);
-      // }
-      // WHEN I REMOVE DATASTATUS, I ALSO NEED TO REMOVE CARD FROM CARDS COPY ARRAY
-
-      // setClickedCardsCopy(clickedCardsCopy.concat(cardClicked));
-      // console.log(clickedCardsCopy, "clickedCardCopy");
-      // WORKING ON THIS clickedCardsCopy state to hold cards clicked and remove data-catagorty set on cards once deselect all is selected
     } else {
       if (cardCount === 4) {
-        // setSubmitButtonClick(false);
         return;
       }
-      // if (cardCount === 0) {
-      //   setdeselectAllButton(true);
-      // }
+
       event.target.setAttribute("data-status", "clicked");
       const updatedCardCount = cardCount + 1;
       setCardCount(updatedCardCount);
-      console.log(cardCount, "CC");
       let cardName = event.target.innerHTML;
       let cardId = cardAttributes["id"].value;
       let cardCategory = cardAttributes["data-category"].value;
@@ -213,34 +155,14 @@ const GameBoard = () => {
       setCompareCards(compareCards.concat(clickedCard));
       let cardClicked = event.target;
       setClickedCardsCopy(clickedCardsCopy.concat(cardClicked));
-      console.log(clickedCardsCopy, "clickedCardCopy");
-      // if (cardCount === 0) {
-      //   setdeselectAllButton(true);
-      // } else {
-      //   setdeselectAllButton(false);
-      // }
-      // cardCount < 1 ? setdeselectAllButton(true) : setdeselectAllButton(false);
-      // setCompareCards(compareCards.concat(cardCategory));
-      // console.log(compareCards);
-      // console.log(cardId);
     }
   };
   // SUBMIT BUTTON FUNCTION
   const handleSubmit = (event) => {
-    console.log(compareCards);
-    console.log(event);
     let cards = event.target.parentElement.parentElement.children[0].children;
-    console.log(cards);
     let submittedCards = Array.from(cards).filter((card) => card.attributes[4]);
-    console.log(submittedCards);
     submittedCards.map((card) => card.setAttribute("class", "card-submitted"));
 
-    console.log("submit clicked");
-    // if (cardCount !== 4) {
-    //   console.log("You need to have four cards highlighted to submit");
-    //   return;
-    // }
-    // else {
     let attemptedCardsDifficulty = compareCards.map((card) => card.difficulty);
     let attemptCardsIDs = compareCards.map((card) => card.id);
     attemptCardsIDs.sort(function (a, b) {
@@ -250,15 +172,9 @@ const GameBoard = () => {
       difficulty: attemptedCardsDifficulty,
       id: attemptCardsIDs,
     };
-    setAttempts(attempts.concat(currentAttempt));
 
     let previousAttemptIds = attempts.map((card) => card.id);
-    // .sort(function (a, b) {
-    //   return a - b;
-    // })
-    console.log(previousAttemptIds);
-    console.log(attemptCardsIDs);
-    // STOPPED HERE
+
     let previousAttempt = false;
     previousAttemptIds.map((cardIds) => {
       if (cardIds.join(",") === attemptCardsIDs.join(",")) {
@@ -266,78 +182,72 @@ const GameBoard = () => {
         setSameGuess(true);
       }
     });
-    console.log(previousAttempt);
-    // if (sameGuess) {
-    //   setSameGuess(false);
-    //   return;
-    // }
+    previousAttempt ? null : setAttempts(attempts.concat(currentAttempt));
+
     let selectedCardsArr = compareCards.map((card) => card.category);
     const allEqual = (arr) => arr.every((val) => val === arr[0]);
     if (!allEqual(selectedCardsArr)) {
-      if (mistakesRemaining === 1) {
-        // compare matchedCards state to randomVarr array and see whats missing.
-        // push whats missing into matched cards state
+      setTimeout(() => {
+        submittedCards.map((card) => card.setAttribute("class", "wrong-guess"));
+      }, 1000);
+      if (mistakesRemaining === 1 && !previousAttempt) {
         let matchedCardsDifficulty = matchedCards.map(
           (card) => card.difficulty
         );
         let remainingSortedCategories = sortedCategories.filter(
           (card) => !matchedCardsDifficulty.includes(card.difficulty)
         );
-        console.log(remainingSortedCategories, "HELLO YOU");
-        setMatchedCards(matchedCards.concat(remainingSortedCategories));
-
-        categoriesArr = [];
-        setClickedCardsCopy([]);
-        setCompareCards([]);
-        setCardCount(0);
+        setTimeout(() => {
+          setMatchedCards(matchedCards.concat(remainingSortedCategories));
+          categoriesArr = [];
+          setClickedCardsCopy([]);
+          setCompareCards([]);
+          setCardCount(0);
+        }, 2000);
       }
       if (previousAttempt) {
         previousAttempt = false;
         setTimeout(() => {
           setSameGuess(false);
-        }, 1000);
+          submittedCards.map((card) => card.removeAttribute("class"));
+          submittedCards.map((card) => card.setAttribute("class", "card"));
+        }, 2000);
         return;
       } else {
         mistakeBubbles.map((bubble) => {
-          console.log("made it in");
           if (bubble.attributes[1].value === mistakesRemaining.toString()) {
-            bubble.setAttribute("data-hidden", "hidden");
+            setTimeout(() => {
+              bubble.setAttribute("data-hidden", "hidden");
+            }, 1400);
           }
         });
-        const updatedMistakesRemaining = mistakesRemaining - 1;
-        setMistakesRemaining(updatedMistakesRemaining);
-        console.log("mistakes remaining", updatedMistakesRemaining);
+        setTimeout(() => {
+          const updatedMistakesRemaining = mistakesRemaining - 1;
+          setMistakesRemaining(updatedMistakesRemaining);
+        }, 2000);
       }
       setTimeout(() => {
         submittedCards.map((card) => card.removeAttribute("class"));
         submittedCards.map((card) => card.setAttribute("class", "card"));
-        // setSameGuess(false);
-      }, 1000);
+      }, 2000);
     }
     if (allEqual(selectedCardsArr)) {
-      console.log("Match!");
-      console.log(
-        "clickedcardscopy",
-        clickedCardsCopy,
-        "categoriesArr",
-        categoriesArr
-      );
+      setTimeout(() => {
+        submittedCards.map((card) =>
+          card.setAttribute("class", "correct-guess")
+        );
+      }, 1000);
 
       let matchedCardIds = clickedCardsCopy.map((card) => card.id);
       let matchedCardsCategory = compareCards.map((card) => card.difficulty);
-      // let matchedCardIdsCopy = [...matchedCardIds];
-      // matchedCardIdsCopy.sort((a, b) => a - b);
-      // console.log(matchedCardIdsCopy);
+
       matchedCardIds.sort((a, b) => a - b);
-      console.log(matchedCardsCategory);
-      console.log(matchedCardIds);
       let remainingCards = categoriesArr.filter(
         (card) => !matchedCardIds.includes(card.id)
       );
       setRemainingCardsInPlay(remainingCards);
       let difficultyKey = matchedCardsCategory[0];
       let obj = { difficulty: difficultyKey };
-      console.log(obj);
       let matchingCardsBannerData = {
         names: {
           name1: compareCards[0].name,
@@ -348,37 +258,27 @@ const GameBoard = () => {
         category: selectedCardsArr[0],
         difficulty: compareCards[0].difficulty,
         id: matchedCardIds[0],
-        //make id's same!!!!!
       };
-      console.log(matchingCardsBannerData);
-      setMatchedCards(matchedCards.concat(matchingCardsBannerData));
-      // let matchedCards = [...clickedCardsCopy];
-      categoriesArr = [...remainingCards];
+      setTimeout(() => {
+        setMatchedCards(matchedCards.concat(matchingCardsBannerData));
+        categoriesArr = [...remainingCards];
+      }, 2000);
+
       setClickedCardsCopy([]);
       setCompareCards([]);
       setCardCount(0);
-      console.log(remainingCards);
-      console.log(matchedCards);
-      // if (matchedCards === 4) {
-      //   winnerModal();
-      // }
     }
-    // }
   };
-  console.log(matchedCards);
   const handleModalClose = (event) => {
     setModal(true);
-    console.log("closed");
   };
   const handleViewResults = () => {
     setModal(false);
-    console.log("JAJAJA");
   };
 
   return (
     <>
       <SameGuess show={sameGuess} />
-      {/* <h3 className="create-title">Create four groups of four!</h3> */}
       <div className="gameboard-container">
         <div className="grid grid-cols-4 gap-2">
           {matchedCards.length >= 1 && mistakesRemaining >= 1
@@ -401,22 +301,22 @@ const GameBoard = () => {
                 />
               ))
             : null}
-          <WinnerModal
+          <ResultsModal
             show={matchedCards.length === 4 && mistakesRemaining >= 1}
             onClick={handleModalClose}
             closeModal={modal}
             attempts={attempts}
             text="Good job!"
           />
-          {showWinnerModal ? (
-            <WinnerModal
-              show={mistakesRemaining === 0}
-              onClick={handleModalClose}
-              closeModal={modal}
-              attempts={attempts}
-              text="Next Time!"
-            />
-          ) : null}
+          {/* {showResultsModal ? ( */}
+          <ResultsModal
+            show={matchedCards.length === 4 && mistakesRemaining === 0}
+            onClick={handleModalClose}
+            closeModal={modal}
+            attempts={attempts}
+            text="Next Time!"
+          />
+          {/* ) : null} */}
           {categoriesArr.map((card) => (
             <Card
               key={card.id}

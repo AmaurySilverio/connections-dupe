@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 
 const SameGuess = ({ show }) => {
-  // setTimeout(() => {}, 2000);
-  // useEffect(() => {}, []);
-  // if (!show) {
-  //   return null;
-  // }
   const showHideClassName = show ? "" : "visibility-hidden";
 
   return (

@@ -1,10 +1,15 @@
-const LoserModal = ({ show, onClick, closeModal, attempts }) => {
+import { createElement } from "react";
+import ShareButton from "./ShareButton";
+import CreateButton from "./CreateButton";
+
+const WinnerModal = ({ show, onClick, closeModal, attempts, text }) => {
   if (!show) {
     return null;
   }
   if (closeModal) {
     return null;
   }
+
   const showHideClassName = show ? "winner-modal-wrapper" : "display-none";
 
   let attemptsInColor = [];
@@ -47,8 +52,6 @@ const LoserModal = ({ show, onClick, closeModal, attempts }) => {
       if (attempt.includes("purple")) {
         attemptBlock.setAttribute("class", "attempts-visual-block-purple");
       }
-      // attemptBlock.setAttribute("class", "attempts-visual-block");
-      // attemptBlock.setAttribute("class", attempt);
       attemptsVisualGrid.append(attemptBlock);
     });
   };
@@ -56,10 +59,8 @@ const LoserModal = ({ show, onClick, closeModal, attempts }) => {
     attemptsVisual();
     console.log("INSIDE SET TIMEOUT");
   }, 10);
-  // attemptsVisual();
   return (
     <div id={showHideClassName}>
-      {/* id="winner-modal-wrapper" */}
       <div className="winner-modal-container">
         <div className="winner-modal-button-container" onClick={onClick}>
           <button className="winner-modal-button">
@@ -82,16 +83,21 @@ const LoserModal = ({ show, onClick, closeModal, attempts }) => {
         </div>
         <article className="winner-modal-article">
           <div className="winner-modal-content">
-            <h2>Good Job!</h2>
+            <h2>{text}</h2>
             <h3>Connections #1</h3>
+            <h3>Your attempts are below.</h3>
             <div className="attempts-visual-container">
               <div id="attempts-visual-row" className="grid grid-cols-4"></div>
             </div>
           </div>
         </article>
+        <div className="buttons modalButtons">
+          <ShareButton onClick={() => console.log("clicked")} />
+          <CreateButton onClick={() => console.log("clicked")} />
+        </div>
       </div>
     </div>
   );
 };
 
-export default LoserModal;
+export default WinnerModal;
