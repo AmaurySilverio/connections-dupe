@@ -236,42 +236,68 @@ const GameBoard = () => {
     submittedCards.map((card) => card.setAttribute("class", "card-submitted"));
 
     console.log("submit clicked");
-    if (cardCount !== 4) {
-      console.log("You need to have four cards highlighted to submit");
-      return;
-    } else {
-      let attemptedCardsDifficulty = compareCards.map(
-        (card) => card.difficulty
-      );
-      let attemptCardsIDs = compareCards.map((card) => card.id);
-      attemptCardsIDs.sort(function (a, b) {
-        return a - b;
-      });
-      let currentAttempt = {
-        difficulty: attemptedCardsDifficulty,
-        id: attemptCardsIDs,
-      };
-      setAttempts(attempts.concat(currentAttempt));
-      let selectedCardsArr = compareCards.map((card) => card.category);
-      const allEqual = (arr) => arr.every((val) => val === arr[0]);
-      if (!allEqual(selectedCardsArr)) {
-        if (mistakesRemaining === 1) {
-          // compare matchedCards state to randomVarr array and see whats missing.
-          // push whats missing into matched cards state
-          let matchedCardsDifficulty = matchedCards.map(
-            (card) => card.difficulty
-          );
-          let remainingSortedCategories = sortedCategories.filter(
-            (card) => !matchedCardsDifficulty.includes(card.difficulty)
-          );
-          console.log(remainingSortedCategories, "HELLO YOU");
-          setMatchedCards(matchedCards.concat(remainingSortedCategories));
+    // if (cardCount !== 4) {
+    //   console.log("You need to have four cards highlighted to submit");
+    //   return;
+    // }
+    // else {
+    let attemptedCardsDifficulty = compareCards.map((card) => card.difficulty);
+    let attemptCardsIDs = compareCards.map((card) => card.id);
+    attemptCardsIDs.sort(function (a, b) {
+      return a - b;
+    });
+    let currentAttempt = {
+      difficulty: attemptedCardsDifficulty,
+      id: attemptCardsIDs,
+    };
+    setAttempts(attempts.concat(currentAttempt));
 
-          categoriesArr = [];
-          setClickedCardsCopy([]);
-          setCompareCards([]);
-          setCardCount(0);
-        }
+    let previousAttemptIds = attempts.map((card) => card.id);
+    // .sort(function (a, b) {
+    //   return a - b;
+    // })
+    console.log(previousAttemptIds);
+    console.log(attemptCardsIDs);
+    // STOPPED HERE
+    let previousAttempt = false;
+    previousAttemptIds.map((cardIds) => {
+      if (cardIds.join(",") === attemptCardsIDs.join(",")) {
+        previousAttempt = true;
+        setSameGuess(true);
+      }
+    });
+    console.log(previousAttempt);
+    // if (sameGuess) {
+    //   setSameGuess(false);
+    //   return;
+    // }
+    let selectedCardsArr = compareCards.map((card) => card.category);
+    const allEqual = (arr) => arr.every((val) => val === arr[0]);
+    if (!allEqual(selectedCardsArr)) {
+      if (mistakesRemaining === 1) {
+        // compare matchedCards state to randomVarr array and see whats missing.
+        // push whats missing into matched cards state
+        let matchedCardsDifficulty = matchedCards.map(
+          (card) => card.difficulty
+        );
+        let remainingSortedCategories = sortedCategories.filter(
+          (card) => !matchedCardsDifficulty.includes(card.difficulty)
+        );
+        console.log(remainingSortedCategories, "HELLO YOU");
+        setMatchedCards(matchedCards.concat(remainingSortedCategories));
+
+        categoriesArr = [];
+        setClickedCardsCopy([]);
+        setCompareCards([]);
+        setCardCount(0);
+      }
+      if (previousAttempt) {
+        previousAttempt = false;
+        setTimeout(() => {
+          setSameGuess(false);
+        }, 1000);
+        return;
+      } else {
         mistakeBubbles.map((bubble) => {
           console.log("made it in");
           if (bubble.attributes[1].value === mistakesRemaining.toString()) {
@@ -281,79 +307,63 @@ const GameBoard = () => {
         const updatedMistakesRemaining = mistakesRemaining - 1;
         setMistakesRemaining(updatedMistakesRemaining);
         console.log("mistakes remaining", updatedMistakesRemaining);
-
-        let previousAttemptIds = attempts.map((card) => card.id);
-        // .sort(function (a, b) {
-        //   return a - b;
-        // })
-        console.log(previousAttemptIds);
-        console.log(attemptCardsIDs);
-        // STOPPED HERE
-        previousAttemptIds.map((cardIds) => {
-          if (cardIds.join(",") === attemptCardsIDs.join(",")) {
-            // alert("same members");
-            setSameGuess(true);
-          }
-        });
-
-        if (attemptCardsIDs === previousAttemptIds) {
-          console.log("Already Guessed!");
-        }
-        setTimeout(() => {
-          submittedCards.map((card) => card.removeAttribute("class"));
-          submittedCards.map((card) => card.setAttribute("class", "card"));
-        }, 1000);
       }
-      if (allEqual(selectedCardsArr)) {
-        console.log("Match!");
-        console.log(
-          "clickedcardscopy",
-          clickedCardsCopy,
-          "categoriesArr",
-          categoriesArr
-        );
-
-        let matchedCardIds = clickedCardsCopy.map((card) => card.id);
-        let matchedCardsCategory = compareCards.map((card) => card.difficulty);
-        // let matchedCardIdsCopy = [...matchedCardIds];
-        // matchedCardIdsCopy.sort((a, b) => a - b);
-        // console.log(matchedCardIdsCopy);
-        matchedCardIds.sort((a, b) => a - b);
-        console.log(matchedCardsCategory);
-        console.log(matchedCardIds);
-        let remainingCards = categoriesArr.filter(
-          (card) => !matchedCardIds.includes(card.id)
-        );
-        setRemainingCardsInPlay(remainingCards);
-        let difficultyKey = matchedCardsCategory[0];
-        let obj = { difficulty: difficultyKey };
-        console.log(obj);
-        let matchingCardsBannerData = {
-          names: {
-            name1: compareCards[0].name,
-            name2: compareCards[1].name,
-            name3: compareCards[2].name,
-            name4: compareCards[3].name,
-          },
-          category: selectedCardsArr[0],
-          difficulty: compareCards[0].difficulty,
-          id: matchedCardIds[0],
-          //make id's same!!!!!
-        };
-        console.log(matchingCardsBannerData);
-        setMatchedCards(matchedCards.concat(matchingCardsBannerData));
-        // let matchedCards = [...clickedCardsCopy];
-        categoriesArr = [...remainingCards];
-        setClickedCardsCopy([]);
-        setCompareCards([]);
-        setCardCount(0);
-        console.log(remainingCards);
-        console.log(matchedCards);
-        // if (matchedCards === 4) {
-        //   winnerModal();
-        // }
-      }
+      setTimeout(() => {
+        submittedCards.map((card) => card.removeAttribute("class"));
+        submittedCards.map((card) => card.setAttribute("class", "card"));
+        // setSameGuess(false);
+      }, 1000);
     }
+    if (allEqual(selectedCardsArr)) {
+      console.log("Match!");
+      console.log(
+        "clickedcardscopy",
+        clickedCardsCopy,
+        "categoriesArr",
+        categoriesArr
+      );
+
+      let matchedCardIds = clickedCardsCopy.map((card) => card.id);
+      let matchedCardsCategory = compareCards.map((card) => card.difficulty);
+      // let matchedCardIdsCopy = [...matchedCardIds];
+      // matchedCardIdsCopy.sort((a, b) => a - b);
+      // console.log(matchedCardIdsCopy);
+      matchedCardIds.sort((a, b) => a - b);
+      console.log(matchedCardsCategory);
+      console.log(matchedCardIds);
+      let remainingCards = categoriesArr.filter(
+        (card) => !matchedCardIds.includes(card.id)
+      );
+      setRemainingCardsInPlay(remainingCards);
+      let difficultyKey = matchedCardsCategory[0];
+      let obj = { difficulty: difficultyKey };
+      console.log(obj);
+      let matchingCardsBannerData = {
+        names: {
+          name1: compareCards[0].name,
+          name2: compareCards[1].name,
+          name3: compareCards[2].name,
+          name4: compareCards[3].name,
+        },
+        category: selectedCardsArr[0],
+        difficulty: compareCards[0].difficulty,
+        id: matchedCardIds[0],
+        //make id's same!!!!!
+      };
+      console.log(matchingCardsBannerData);
+      setMatchedCards(matchedCards.concat(matchingCardsBannerData));
+      // let matchedCards = [...clickedCardsCopy];
+      categoriesArr = [...remainingCards];
+      setClickedCardsCopy([]);
+      setCompareCards([]);
+      setCardCount(0);
+      console.log(remainingCards);
+      console.log(matchedCards);
+      // if (matchedCards === 4) {
+      //   winnerModal();
+      // }
+    }
+    // }
   };
   console.log(matchedCards);
   const handleModalClose = (event) => {
@@ -367,8 +377,8 @@ const GameBoard = () => {
 
   return (
     <>
-      <h3 className="create-title">Create four groups of four!</h3>
-      {sameGuess ? <SameGuess /> : null}
+      <SameGuess show={sameGuess} />
+      {/* <h3 className="create-title">Create four groups of four!</h3> */}
       <div className="gameboard-container">
         <div className="grid grid-cols-4 gap-2">
           {matchedCards.length >= 1 && mistakesRemaining >= 1
@@ -380,7 +390,7 @@ const GameBoard = () => {
                   id={card.difficulty}
                 />
               ))
-            : console.log("Welcome to the console! Are you enjoying the game?")}
+            : null}
           {mistakesRemaining === 0
             ? matchedCards.map((card) => (
                 <MatchingBanners
@@ -390,7 +400,7 @@ const GameBoard = () => {
                   id={card.difficulty}
                 />
               ))
-            : console.log("Welcome to the console! Are you enjoying the game?")}
+            : null}
           <WinnerModal
             show={matchedCards.length === 4 && mistakesRemaining >= 1}
             onClick={handleModalClose}

@@ -60,9 +60,10 @@
   border-top: 0.3px solid black;
   border-bottom: 0.3px solid black;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  /* flex-direction: row;
+  justify-content: flex-end; */
   padding: 10px 20px;
+  margin-bottom: 15px;
 }
 #instructions-icon{
   /* cursor: pointer; */
@@ -70,8 +71,9 @@
 
 /* GAMEBOARD STYLING */
 .create-title{
-  text-align: center;
-  margin-top: 24px;
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
 }
 .gameboard-container {
   margin: auto;
@@ -154,9 +156,12 @@ div[data-status~="clicked"]{
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  margin: auto;
+  margin: 0 auto;
   height: 40px;
   width: 157px;
+  /* position: relative;
+    top: -49px; */
+    /* opacity: 1; */
 }
 
 /* MATCHING BANNER STYLING */
@@ -379,6 +384,10 @@ button[id~="submit"]{
 }
 .display-none{
   display: none;
+}
+#visibility-hidden{
+  visibility: hidden;
+  /* opacity: 0; */
 }
 /* INSTRUCTIONS MODAL */
 .instructions-modal-wrapper{

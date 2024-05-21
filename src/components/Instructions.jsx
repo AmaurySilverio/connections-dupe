@@ -15,8 +15,7 @@ const Instructions = () => {
     <>
       <InstructionsModal show={instructions} onClick={handleModalClose} />
       <div className="instructions-container">
-        {/* <div className="instructions-button-container" onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave} onClick={handleInstructionsClick}> */}
+        <h3 className="create-title">Create four groups of four!</h3>
         <button
           className="instructions-button"
           onClick={handleInstructionsClick}
@@ -38,7 +37,6 @@ const Instructions = () => {
           </svg>
         </button>
       </div>
-      {/* </div> */}
     </>
   );
 };
